@@ -312,13 +312,6 @@
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">Phy-Tac: Toward Human-Like Grasping via Physics-Conditioned Tactile Goals</h1>
-            <!-- <div class="is-size-5 publication-authors">
-              <span class="author-block">
-                <a href="https://horwitz.ai/" target="_blank">Eliahu Horwitz</a>,</span>
-              <span class="author-block">
-                <a href="https://www.cs.huji.ac.il/w~ydidh/" target="_blank">Yedid Hoshen</a>
-              </span>
-            </div> -->
 
             <div class="column has-text-centered">
               <div class="publication-links">
@@ -341,16 +334,6 @@
                 <span>Code</span>
               </a>
             </span>
-
-            <!-- ArXiv abstract Link
-            <span class="link-block">
-              <a href="https://arxiv.org/abs/2203.05550" target="_blank" class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                  <i class="ai ai-arxiv"></i>
-                </span>
-                <span>arXiv</span>
-              </a>
-            </span> -->
           </div>
         </div>
       </div>
@@ -364,7 +347,7 @@
   <div class="container is-max-desktop">
     <div class="hero-body">
       <video poster="" id="tree" autoplay="" controls="" muted="" loop="" height="100%" preload="metadata">
-        <source src="/3d_ads/static/videos/cookie.mp4" type="video/mp4">
+        <source src="./Assets/Phy-TacVideo.mp4" type="video/mp4">
       </video>
       <h2 class="subtitle has-text-justified">
       We conduct a careful study seeking answers to several questions:<br> 
@@ -386,13 +369,17 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Despite significant advances in image anomaly detection and segmentation, few methods use 3D information. We utilize a recently introduced 3D anomaly detection dataset to evaluate whether or not using 3D information is a lost opportunity. First, we present a surprising finding: standard color-only methods outperform all current methods that are explicitly designed to exploit 3D information.
-            This is counter-intuitive as even a simple inspection of the dataset shows that color-only methods are insufficient for images containing geometric anomalies. This motivates the question: how can anomaly detection methods effectively use 3D information? We investigate a range of shape representations including hand-crafted and deep-learning-based; we demonstrate that rotation invariance plays the leading role in the performance.
-            We uncover a simple 3D-only method that beats all recent approaches while not using deep learning, external pre-training datasets, or color information.
-            As the 3D-only method cannot detect color and texture anomalies, we combine it with color-based features, significantly outperforming previous state-of-the-art. Our method, dubbed BTF (Back to the Feature) achieves pixel-wise ROCAUC: 99.3% and PRO: 96.4% on MVTec 3D-AD. 
+            Humans naturally grasp objects with minimal level required force for stability, whereas robots often rely on rigid, over-squeezing control.
+            To narrow this gap, we propose a human-inspired physics-conditioned tactile method (Phy-Tac) for force-optimal stable grasping (FOSG) that unifies pose selection, tactile prediction, and force regulation.
+            A physics-based pose selector first identifies feasible contact regions with optimal force distribution based on surface geometry. 
+            Then, a physics-conditioned latent diffusion model (Phy-LDM) predicts the tactile imprint under FOSG target. 
+            Last, a latent-space LQR controller drives the gripper toward this tactile imprint with minimal actuation, preventing unnecessary compression.
+            Trained on a physics-conditioned tactile dataset covering diverse objects and contact conditions, the proposed Phy-LDM achieves superior tactile prediction accuracy, while the Phy-Tac outperforms fixed-force and GraspNet-based baselines in grasp stability and force efficiency.
+            Experiments on classical robotic platforms demonstrate force-efficient and adaptive manipulation that bridges the gap between robotic and human grasping.
+            The dataset and code will be open-source. 
           </p>
           <p>
-            <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/results.png" alt="Additional Results" class="center-image blend-img-background" loading="lazy">
+            <img src="./Assets/DescriptionFigureV5.png" alt="Additional Results" class="center-image blend-img-background" loading="lazy">
           </p>
         </div>
       </div>
