@@ -1,176 +1,590 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Phy‑Tac: Physical Tactile Modeling</title>
-  <meta name="description" content="Phy‑Tac project page: paper, code, dataset, demo, and results." />
-  <!-- Optional social sharing -->
-  <meta property="og:title" content="Phy‑Tac: Physical Tactile Modeling" />
-  <meta property="og:description" content="Project page: paper, code, dataset, demo, and results." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/teaser.jpg" />
-  <meta property="og:url" content="https://lyushipeng-pixel.github.io/Phy-Tac/" />
-  <style>
-    :root {
-      --bg: #0b0c10;        /* dark background */
-      --card: #121318;      /* card background */
-      --text: #e6e6e6;      /* primary text */
-      --muted: #a9abb3;     /* secondary text */
-      --brand: #6aa6ff;     /* accent */
-      --brand-2: #a476ff;   /* secondary accent */
-      --ring: rgba(106,166,255,0.35);
-      --radius: 18px;
-      --shadow: 0 8px 24px rgba(0,0,0,.35);
+<!-- saved from url=(0026)https://horwitz.ai/3d_ads/ -->
+<html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Back to the Feature: Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen">
+  <meta name="description" content="We aim to further understand the benefit of 3D vs. color in image anomaly detection. Our best model reaches SOTA (Pixel ROCAUC 99.2%, PRO 95.9% on MVTec 3D-AD)">
+  <meta name="keywords" content="Anomaly Detection, Anomaly Segmentation, Point Clouds, Computer Vision, Deep Learning, 3D Vision, MVTec">
+  <meta name="author" content="Eliahu Horwitz, Yedid Hoshen">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Hebrew University of Jerusalem">
+  <meta property="og:title" content="Back to the Feature: Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection">
+  <meta property="og:description" content="We aim to further understand the benefit of 3D vs. color in image anomaly detection. Our best model reaches SOTA (Pixel ROCAUC 99.2%, PRO 95.9% on MVTec 3D-AD)">
+  <meta property="og:url" content="https://horwitz.ai/3d_ads">
+  <meta property="og:image" content="https://horwitz.ai/3d_ads/static/images/og_image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Back to the Feature: Classical 3D Features - Research Preview">
+  <meta property="article:published_time" content="2023-06-01T00:00:00.000Z">
+  <meta property="article:author" content="Eliahu Horwitz">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="Anomaly Detection">
+  <meta property="article:tag" content="3D Vision">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@eliahu_horwitz">
+  <meta name="twitter:creator" content="@eliahu_horwitz">
+  <meta name="twitter:title" content="Back to the Feature: Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection">
+  <meta name="twitter:description" content="We aim to further understand the benefit of 3D vs. color in image anomaly detection. Our best model reaches SOTA (Pixel ROCAUC 99.2%, PRO 95.9% on MVTec 3D-AD)">
+  <meta name="twitter:image" content="https://horwitz.ai/3d_ads/static/images/twitter_image.png">
+  <meta name="twitter:image:alt" content="Back to the Feature: Classical 3D Features - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Back to the Feature: Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection">
+  <meta name="citation_author" content="Horwitz, Eliahu">
+  <meta name="citation_author" content="Hoshen, Yedid">
+  <meta name="citation_publication_date" content="2023">
+  <meta name="citation_conference_title" content="VAND Workshop - CVPR 2023">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2203.05550.pdf">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <style type="text/css">svg:not(:root).svg-inline--fa{overflow:visible}.svg-inline--fa{display:inline-block;font-size:inherit;height:1em;overflow:visible;vertical-align:-.125em}.svg-inline--fa.fa-lg{vertical-align:-.225em}.svg-inline--fa.fa-w-1{width:.0625em}.svg-inline--fa.fa-w-2{width:.125em}.svg-inline--fa.fa-w-3{width:.1875em}.svg-inline--fa.fa-w-4{width:.25em}.svg-inline--fa.fa-w-5{width:.3125em}.svg-inline--fa.fa-w-6{width:.375em}.svg-inline--fa.fa-w-7{width:.4375em}.svg-inline--fa.fa-w-8{width:.5em}.svg-inline--fa.fa-w-9{width:.5625em}.svg-inline--fa.fa-w-10{width:.625em}.svg-inline--fa.fa-w-11{width:.6875em}.svg-inline--fa.fa-w-12{width:.75em}.svg-inline--fa.fa-w-13{width:.8125em}.svg-inline--fa.fa-w-14{width:.875em}.svg-inline--fa.fa-w-15{width:.9375em}.svg-inline--fa.fa-w-16{width:1em}.svg-inline--fa.fa-w-17{width:1.0625em}.svg-inline--fa.fa-w-18{width:1.125em}.svg-inline--fa.fa-w-19{width:1.1875em}.svg-inline--fa.fa-w-20{width:1.25em}.svg-inline--fa.fa-pull-left{margin-right:.3em;width:auto}.svg-inline--fa.fa-pull-right{margin-left:.3em;width:auto}.svg-inline--fa.fa-border{height:1.5em}.svg-inline--fa.fa-li{width:2em}.svg-inline--fa.fa-fw{width:1.25em}.fa-layers svg.svg-inline--fa{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.fa-layers{display:inline-block;height:1em;position:relative;text-align:center;vertical-align:-.125em;width:1em}.fa-layers svg.svg-inline--fa{-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter,.fa-layers-text{display:inline-block;position:absolute;text-align:center}.fa-layers-text{left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);-webkit-transform-origin:center center;transform-origin:center center}.fa-layers-counter{background-color:#ff253a;border-radius:1em;-webkit-box-sizing:border-box;box-sizing:border-box;color:#fff;height:1.5em;line-height:1;max-width:5em;min-width:1.5em;overflow:hidden;padding:.25em;right:0;text-overflow:ellipsis;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-bottom-right{bottom:0;right:0;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom right;transform-origin:bottom right}.fa-layers-bottom-left{bottom:0;left:0;right:auto;top:auto;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:bottom left;transform-origin:bottom left}.fa-layers-top-right{right:0;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top right;transform-origin:top right}.fa-layers-top-left{left:0;right:auto;top:0;-webkit-transform:scale(.25);transform:scale(.25);-webkit-transform-origin:top left;transform-origin:top left}.fa-lg{font-size:1.3333333333em;line-height:.75em;vertical-align:-.0667em}.fa-xs{font-size:.75em}.fa-sm{font-size:.875em}.fa-1x{font-size:1em}.fa-2x{font-size:2em}.fa-3x{font-size:3em}.fa-4x{font-size:4em}.fa-5x{font-size:5em}.fa-6x{font-size:6em}.fa-7x{font-size:7em}.fa-8x{font-size:8em}.fa-9x{font-size:9em}.fa-10x{font-size:10em}.fa-fw{text-align:center;width:1.25em}.fa-ul{list-style-type:none;margin-left:2.5em;padding-left:0}.fa-ul>li{position:relative}.fa-li{left:-2em;position:absolute;text-align:center;width:2em;line-height:inherit}.fa-border{border:solid .08em #eee;border-radius:.1em;padding:.2em .25em .15em}.fa-pull-left{float:left}.fa-pull-right{float:right}.fa.fa-pull-left,.fab.fa-pull-left,.fal.fa-pull-left,.far.fa-pull-left,.fas.fa-pull-left{margin-right:.3em}.fa.fa-pull-right,.fab.fa-pull-right,.fal.fa-pull-right,.far.fa-pull-right,.fas.fa-pull-right{margin-left:.3em}.fa-spin{-webkit-animation:fa-spin 2s infinite linear;animation:fa-spin 2s infinite linear}.fa-pulse{-webkit-animation:fa-spin 1s infinite steps(8);animation:fa-spin 1s infinite steps(8)}@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes fa-spin{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.fa-rotate-90{-webkit-transform:rotate(90deg);transform:rotate(90deg)}.fa-rotate-180{-webkit-transform:rotate(180deg);transform:rotate(180deg)}.fa-rotate-270{-webkit-transform:rotate(270deg);transform:rotate(270deg)}.fa-flip-horizontal{-webkit-transform:scale(-1,1);transform:scale(-1,1)}.fa-flip-vertical{-webkit-transform:scale(1,-1);transform:scale(1,-1)}.fa-flip-both,.fa-flip-horizontal.fa-flip-vertical{-webkit-transform:scale(-1,-1);transform:scale(-1,-1)}:root .fa-flip-both,:root .fa-flip-horizontal,:root .fa-flip-vertical,:root .fa-rotate-180,:root .fa-rotate-270,:root .fa-rotate-90{-webkit-filter:none;filter:none}.fa-stack{display:inline-block;height:2em;position:relative;width:2.5em}.fa-stack-1x,.fa-stack-2x{bottom:0;left:0;margin:auto;position:absolute;right:0;top:0}.svg-inline--fa.fa-stack-1x{height:1em;width:1.25em}.svg-inline--fa.fa-stack-2x{height:2em;width:2.5em}.fa-inverse{color:#fff}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.sr-only-focusable:active,.sr-only-focusable:focus{clip:auto;height:auto;margin:0;overflow:visible;position:static;width:auto}.svg-inline--fa .fa-primary{fill:var(--fa-primary-color,currentColor);opacity:1;opacity:var(--fa-primary-opacity,1)}.svg-inline--fa .fa-secondary{fill:var(--fa-secondary-color,currentColor);opacity:.4;opacity:var(--fa-secondary-opacity,.4)}.svg-inline--fa.fa-swap-opacity .fa-primary{opacity:.4;opacity:var(--fa-secondary-opacity,.4)}.svg-inline--fa.fa-swap-opacity .fa-secondary{opacity:1;opacity:var(--fa-primary-opacity,1)}.svg-inline--fa mask .fa-primary,.svg-inline--fa mask .fa-secondary{fill:#000}.fad.fa-inverse{color:#fff}</style><link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link rel="preconnect" href="https://ajax.googleapis.com/">
+  <link rel="preconnect" href="https://documentcloud.adobe.com/">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net/">
+  <link rel="preconnect" href="https://unpkg.com/">
+
+  <link rel="canonical" href="https://horwitz.ai/3d_ads">
+
+  <title>Back to the Feature: Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen | Academic Research</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="https://horwitz.ai/3d_ads/static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="https://horwitz.ai/3d_ads/static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/bulma.min.css">
+  <link rel="stylesheet" href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="stylesheet" href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+  <link rel="stylesheet" href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+  <link rel="stylesheet" href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+  <link rel="stylesheet" href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/academicons.min.css" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="/3d_ads/static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="/3d_ads/static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="/3d_ads/static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/css2" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/jquery.min.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/main.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/fontawesome.all.min.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/bulma-carousel.min.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/bulma-slider.min.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/index.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/js-image-zoom.js.下载"></script>
+  <script defer="" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/js-image-zoom.min.js.下载"></script>
+  <script defer="" type="module" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/model-viewer.min.js.下载"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Back to the Feature: Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection",
+    "description": "We aim to further understand the benefit of 3D vs. color in image anomaly detection. Our best model reaches SOTA (Pixel ROCAUC 99.2%, PRO 95.9% on MVTec 3D-AD)",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "Eliahu Horwitz",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hebrew University of Jerusalem"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "Yedid Hoshen",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "Hebrew University of Jerusalem"
+        }
+      }
+    ],
+    "datePublished": "2023-06-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "VAND Workshop - CVPR 2023"
+    },
+    "url": "https://horwitz.ai/3d_ads",
+    "image": "https://horwitz.ai/3d_ads/static/images/og_image.png",
+    "keywords": ["Anomaly Detection", "3D Vision", "Point Clouds", "Computer Vision", "Deep Learning"],
+    "abstract": "Despite significant advances in image anomaly detection and segmentation, few methods use 3D information. We utilize a recently introduced 3D anomaly detection dataset to evaluate whether or not using 3D information is a lost opportunity.",
+    "citation": "@inproceedings{horwitz2023back, title={Back to the feature: classical 3d features are (almost) all you need for 3d anomaly detection}, author={Horwitz, Eliahu and Hoshen, Yedid}, booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition}, pages={2968--2977}, year={2023}}",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://horwitz.ai/3d_ads"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Anomaly Detection"
+      },
+      {
+        "@type": "Thing", 
+        "name": "3D Computer Vision"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Hebrew University of Jerusalem",
+    "url": "https://www.huji.ac.il",
+    "logo": "https://horwitz.ai/3d_ads/static/images/favicon.ico",
+    "sameAs": [
+      "https://twitter.com/eliahu_horwitz",
+      "https://github.com/eliahuhorwitz"
+    ]
+  }
+  </script>
+
+  <script>
+    function imageZoom(imgID, resultID) {
+      var img, lens, result, cx, cy;
+      img = document.getElementById(imgID);
+      result = document.getElementById(resultID);
+      /* Create lens: */
+      lens = document.createElement("DIV");
+      lens.setAttribute("class", "img-zoom-lens");
+      /* Insert lens: */
+      img.parentElement.insertBefore(lens, img);
+      /* Calculate the ratio between result DIV and lens: */
+      cx = result.offsetWidth / lens.offsetWidth;
+      cy = result.offsetHeight / lens.offsetHeight;
+      /* Set background properties for the result DIV */
+      result.style.backgroundImage = "url('" + img.src + "')";
+      result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+      /* Execute a function when someone moves the cursor over the image, or the lens: */
+      lens.addEventListener("mousemove", moveLens);
+      img.addEventListener("mousemove", moveLens);
+      /* And also for touch screens: */
+      lens.addEventListener("touchmove", moveLens);
+      img.addEventListener("touchmove", moveLens);
+      function moveLens(e) {
+        var pos, x, y;
+        /* Prevent any other actions that may occur when moving over the image */
+        e.preventDefault();
+        /* Get the cursor's x and y positions: */
+        pos = getCursorPos(e);
+        /* Calculate the position of the lens: */
+        x = pos.x - (lens.offsetWidth / 2);
+        y = pos.y - (lens.offsetHeight / 2);
+        /* Prevent the lens from being positioned outside the image: */
+        if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+        if (x < 0) {x = 0;}
+        if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
+        if (y < 0) {y = 0;}
+        /* Set the position of the lens: */
+        lens.style.left = x + "px";
+        lens.style.top = y + "px";
+        /* Display what the lens "sees": */
+        result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+      }
+      function getCursorPos(e) {
+        var a, x = 0, y = 0;
+        e = e || window.event;
+        /* Get the x and y positions of the image: */
+        a = img.getBoundingClientRect();
+        /* Calculate the cursor's x and y coordinates, relative to the image: */
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
+        /* Consider any page scrolling: */
+        x = x - window.pageXOffset;
+        y = y - window.pageYOffset;
+        return {x : x, y : y};
+      }
     }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text); background: radial-gradient(1200px 600px at 20% -10%, rgba(106,166,255,.12), transparent),
-               radial-gradient(1000px 500px at 80% 0%, rgba(164,118,255,.10), transparent), var(--bg);
+  </script>
+<script src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/ViewSDKInterface.js.下载"></script><style type="text/css">.ViewSDK_hideOverflow {
+        overflow: hidden;
+    }</style><style type="text/css">.ViewSDK_parentRelativeWidth {
+        width: 100%;
+    }</style><style type="text/css">.ViewSDK_viewportRelativeWidth {
+        width: 100vw;
+    }</style><style type="text/css">.ViewSDK_parentRelativeHeight {
+        height: 100%;
+    }</style><style type="text/css">.ViewSDK_viewportRelativeHeight {
+        height: 100vh;
+    }</style><style type="text/css">.ViewSDK_fullScreenPDFViewer {
+        width:100vw !important; height:100vh !important;
+        max-width:100vw !important; max-height:100vh !important;
+        position:fixed; top:0; left:0; z-index:99999;
+        margin: 0 !important; padding: 0 !important;
+        border: none !important;
+    }</style><style type="text/css">:root { --ViewSDK-mobile-viewport-height:1vh; }</style><style type="text/css">.ViewSDK_fullScreenPDFViewerMobile {
+        width:100vw !important; height:calc(100 * var(--ViewSDK-mobile-viewport-height)) !important;
+        max-width:100vw !important; max-height:calc(100 * var(--ViewSDK-mobile-viewport-height)) !important;
+        position:fixed; top:0; left:0; z-index:99999;
+        margin: 0 !important; padding: 0 !important;
+        border: none !important;
+    }</style><style type="text/css">.ViewSDK_hideOverflow {
+        overflow: hidden;
+    }</style><style type="text/css">.ViewSDK_parentRelativeWidth {
+        width: 100%;
+    }</style><style type="text/css">.ViewSDK_viewportRelativeWidth {
+        width: 100vw;
+    }</style><style type="text/css">.ViewSDK_parentRelativeHeight {
+        height: 100%;
+    }</style><style type="text/css">.ViewSDK_viewportRelativeHeight {
+        height: 100vh;
+    }</style><style type="text/css">.ViewSDK_fullScreenPDFViewer {
+        width:100vw !important; height:100vh !important;
+        max-width:100vw !important; max-height:100vh !important;
+        position:fixed; top:0; left:0; z-index:9999;
+        margin: 0 !important; padding: 0 !important;
+        border: none !important;
+    }</style><style type="text/css">.ViewSDK_LBFullScreenPDFViewer {
+        width:100vw !important; height:100vh !important;
+        max-width:100vw !important; max-height:100vh !important;
+        position:fixed; top:0; left:0; z-index:10000;
+        margin: 0 !important; padding: 0 !important;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: none !important;
+    }</style><style type="text/css">:root { --ViewSDK-mobile-viewport-height:1vh; }</style><style type="text/css">.ViewSDK_fullScreenPDFViewerMobile {
+        width:100vw !important; height:calc(100 * var(--ViewSDK-mobile-viewport-height)) !important;
+        max-width:100vw !important; max-height:calc(100 * var(--ViewSDK-mobile-viewport-height)) !important;
+        position:fixed; top:0; left:0; z-index:9999;
+        margin: 0 !important; padding: 0 !important;
+        border: none !important;
+    }</style><style type="text/css">.ViewSDK_LBLoader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 10000;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #1473E6;
+        width: 56px !important;
+        height: 56px !important;
+        margin: -32px 0 0 -32px;
+        border-radius: 50%;
+        -webkit-animation: lbSpin 2s linear infinite;
+        animation: lbSpin 2s linear infinite;
     }
-    a { color: var(--brand); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width: 1050px; margin: 0 auto; padding: 24px; }
-
-    /* header */
-    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0 8px; }
-    .brand { font-weight: 700; letter-spacing: .2px; color: #fff; }
-    nav a { margin-left: 16px; color: var(--muted); }
-
-    /* hero */
-    .hero { margin-top: 24px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; }
-    .card { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08);
-            border-radius: var(--radius); box-shadow: var(--shadow); }
-    .hero .left { padding: 28px; }
-    h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; margin: 0 0 10px; }
-    .subtitle { font-size: 18px; color: var(--muted); margin-bottom: 14px; }
-
-    .authors { display: flex; flex-wrap: wrap; gap: 10px 16px; margin: 12px 0 18px; }
-    .authors a { color: #fff; border-bottom: 1px dashed rgba(255,255,255,.35); }
-
-    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12);
-             background: rgba(255,255,255,.04); color:#fff; font-weight: 600; }
-    .badge:hover { box-shadow: 0 0 0 3px var(--ring); text-decoration: none; }
-    .badge svg{ width:18px; height:18px; opacity:.9 }
-
-    .hero .teaser { overflow: hidden; }
-    .teaser img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); display: block; }
-
-    /* sections */
-    section { margin-top: 36px; }
-    .section-card { padding: 24px; }
-    h2 { font-size: 24px; margin: 0 0 14px; }
-    .grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    .figure { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
-    .figure img { width:100%; display:block; }
-    .caption { color: var(--muted); font-size: 14px; margin-top: 6px; }
-
-    pre.bibtex { background: #0f1117; color: #e6e6e6; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 14px; overflow:auto; }
-
-    footer { color: var(--muted); margin: 36px 0 20px; font-size: 14px; }
-
-    /* responsive */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: 1fr; }
+    @-webkit-keyframes lbSpin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <header>
-      <div class="brand">Phy‑Tac</div>
-      <nav>
-        <a href="#paper">Paper</a>
-        <a href="#code">Code</a>
-        <a href="#results">Results</a>
-        <a href="#bibtex">BibTeX</a>
-      </nav>
-    </header>
+    @keyframes lbSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }</style></head>
+<body data-new-gr-c-s-check-loaded="14.1126.0" data-gr-ext-installed="">
 
-    <section class="hero">
-      <div class="left card">
-        <h1>Phy‑Tac: Physical Tactile Modeling</h1>
-        <div class="subtitle">Conference/Workshop · 2025 · Project Page</div>
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <svg class="svg-inline--fa fa-chevron-up fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chevron-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg><!-- <i class="fas fa-chevron-up"></i> Font Awesome fontawesome.com -->
+  </button>
 
-        <div class="authors">
-          <a href="#">First Author</a>,
-          <a href="#">Second Author</a>,
-          <a href="#">Shipeng Lyu</a>
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Phy-Tac: Toward Human-Like Grasping via Physics-Conditioned Tactile Goals</h1>
+            <!-- <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://horwitz.ai/" target="_blank">Eliahu Horwitz</a>,</span>
+              <span class="author-block">
+                <a href="https://www.cs.huji.ac.il/w~ydidh/" target="_blank">Yedid Hoshen</a>
+              </span>
+            </div> -->
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+               <!-- Arxiv PDF link -->
+               <span class="link-block">
+                <a href="https://github.com/eliahuhorwitz/3D-ADS" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><!-- <i class="fab fa-github"></i> Font Awesome fontawesome.com -->
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+
+              <!-- Github link -->
+              <span class="link-block">
+                <a href="https://github.com/eliahuhorwitz/3D-ADS" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><!-- <i class="fab fa-github"></i> Font Awesome fontawesome.com -->
+                </span>
+                <span>Code</span>
+              </a>
+            </span>
+
+            <!-- ArXiv abstract Link
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2203.05550" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="ai ai-arxiv"></i>
+                </span>
+                <span>arXiv</span>
+              </a>
+            </span> -->
+          </div>
         </div>
-
-        <div class="subtitle">Affiliations: <span>University / Lab 1</span>, <span>Institute 2</span></div>
-
-        <div class="badges">
-          <a class="badge" id="paper" href="#" target="_blank" rel="noopener">
-            <!-- paper icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-            Paper (PDF)
-          </a>
-          <a class="badge" id="code" href="https://github.com/lyushipeng-pixel/Phy-Tac" target="_blank" rel="noopener">
-            <!-- code icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
-            Code (GitHub)
-          </a>
-          <a class="badge" href="#" target="_blank" rel="noopener">
-            <!-- dataset icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
-            Dataset
-          </a>
-          <a class="badge" href="#" target="_blank" rel="noopener">
-            <!-- demo icon -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-            Demo Video
-          </a>
-        </div>
       </div>
-      <div class="teaser card">
-        <img src="assets/teaser.jpg" alt="Phy‑Tac Teaser (replace with your image)" />
-      </div>
-    </section>
-
-    <section id="abstract" class="section-card card">
-      <h2>Abstract</h2>
-      <p>
-        Replace this paragraph with your abstract. Keep it concise: what problem you address, your key idea,
-        and the main results.
-      </p>
-    </section>
-
-    <section id="results" class="section-card card">
-      <h2>Results</h2>
-      <div class="grid">
-        <figure class="figure">
-          <img src="assets/result-1.jpg" alt="Result 1" />
-          <figcaption class="caption">Result 1 caption.</figcaption>
-        </figure>
-        <figure class="figure">
-          <img src="assets/result-2.jpg" alt="Result 2" />
-          <figcaption class="caption">Result 2 caption.</figcaption>
-        </figure>
-        <figure class="figure">
-          <img src="assets/result-3.jpg" alt="Result 3" />
-          <figcaption class="caption">Result 3 caption.</figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section id="bibtex" class="section-card card">
-      <h2>BibTeX</h2>
-      <pre class="bibtex">@inproceedings{yourkey2025phytac,
-  title     = {Phy-Tac: Physical Tactile Modeling},
-  author    = {First, A. and Second, B. and Lyu, S.},
-  booktitle = {Proceedings of Some Conference},
-  year      = {2025}
-}</pre>
-    </section>
-
-    <footer>
-      © 2025 Phy‑Tac Authors. Feel free to use this page as a template. If you adapt third‑party templates, keep their license/attribution as required.
-    </footer>
+    </div>
   </div>
-</body>
-</html>
+</div>
+</section>
+
+<!-- Teaser video-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video poster="" id="tree" autoplay="" controls="" muted="" loop="" height="100%" preload="metadata">
+        <source src="/3d_ads/static/videos/cookie.mp4" type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-justified">
+      We conduct a careful study seeking answers to several questions:<br> 
+      (1) Do current 3D AD&amp;S methods truly outperform state-of-the-art 2D methods on 3D data? <br>
+      (2) Is 3D information potentially useful for AD&amp;S? <br>
+      (3) What are the key properties of successful 3D AD&amp;S representations? <br>
+      (4) Are there complementary benefits from using 3D shape and color modalities?
+    </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser video -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Despite significant advances in image anomaly detection and segmentation, few methods use 3D information. We utilize a recently introduced 3D anomaly detection dataset to evaluate whether or not using 3D information is a lost opportunity. First, we present a surprising finding: standard color-only methods outperform all current methods that are explicitly designed to exploit 3D information.
+            This is counter-intuitive as even a simple inspection of the dataset shows that color-only methods are insufficient for images containing geometric anomalies. This motivates the question: how can anomaly detection methods effectively use 3D information? We investigate a range of shape representations including hand-crafted and deep-learning-based; we demonstrate that rotation invariance plays the leading role in the performance.
+            We uncover a simple 3D-only method that beats all recent approaches while not using deep learning, external pre-training datasets, or color information.
+            As the 3D-only method cannot detect color and texture anomalies, we combine it with color-based features, significantly outperforming previous state-of-the-art. Our method, dubbed BTF (Back to the Feature) achieves pixel-wise ROCAUC: 99.3% and PRO: 96.4% on MVTec 3D-AD. 
+          </p>
+          <p>
+            <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/results.png" alt="Additional Results" class="center-image blend-img-background" loading="lazy">
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+<section class="section is-small">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="content">
+          <h2 class="title is-3">Current 3D AD&amp;S</h2>
+          <div class="level-set has-text-justified">
+            <p>
+              We begin our investigation by evaluating if current 3D AD&amp;S methods are actually better than the SoTA 2D methods when applied on 3D data. Surprisingly, PatchCore, which does not use 3D information, outperforms all previous methods.
+            </p>
+          </div>
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/baselines_v_rgb.png" alt="Baselines vs. RGB" class="center-image" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-full is-max-desktop">
+    <div class="content ">
+      <h2 class="title is-3">Potential 3D Utility</h2>
+      <div class="level-set has-text-justified">
+        <p>
+          We also investigate whether 3D information is needed <emph>at all</emph> for AD&amp;S. Encouragingly, we find that several types of anomalies are not easy to detect using 2D-only methods, motivating the development of better 3D methods.
+        </p>
+        <h2 class="has-text-centered">
+          <emph>Move your mouse over the image to zoom</emph>
+        </h2>
+      </div>
+    </div>
+    <p>
+      </p><div class="columns is-centered has-text-centered">
+        <div class="column is-11">
+          <div class="img-zoom-container">
+            <div class="img-zoom-lens"></div><img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/rgb_v_3d.png" alt="Motivation for 3D" class="center-image blend-img-background" id="myimage" loading="lazy"> 
+          </div>
+        </div>
+        <div class="column is-1">
+          <div id="myresult" class="center-image img-zoom-result" style="background-image: url(&quot;https://horwitz.ai/3d_ads/static/images/rgb_v_3d.png&quot;); background-size: 5268px 4044px;"></div>
+        </div>
+      </div>
+    <p></p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <div class="content">
+          <h2 class="title is-3">Representations Study</h2>
+          <div class="level-set has-text-justified">
+            <p>
+              Our investigation examines a large range of approaches including handcrafted descriptors and pre-trained deep features for both depth and 3D approaches. Our surprising result is that a classical 3D handcrafted point cloud descriptor outperforms all other 3D methods - including all previously presented baselines as well as a concurrent deep-learning-based point cloud approach.
+            </p>
+            <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/ours_sum.png" alt="Summary of our findings" class="center-image" loading="lazy">
+            <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/max_patch.png" alt="Visualize most dist patch" class="center-image blend-img-background" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Class Level Breakdown</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        
+        
+        
+      <div id="slider712bc7cf-4bdd-4f77-a532-8772e14849a7" class="slider" tabindex="0">
+    <div class="slider-container" style="opacity: 1; width: 8640px; transition: 300ms; transform: translate3d(-3840px, 0px, 0px);"><div class="slider-item" data-slider-index="-2" data-cloned="true" style="width: 960px;"><div class="item blend-img-item item-full-iroc">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_iroc.png" alt="Detailed Image ROCAUC" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item" data-slider-index="-1" data-cloned="true" style="width: 960px;"><div class="item blend-img-item item-full-proc">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_proc.png" alt="Detailed Pixel-wise ROCAUC" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item is-slide-previous" data-slider-index="0" style="width: 960px;"><div class="item blend-img-item item-full-pro">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_pro.png" alt="Detailed PRO" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item is-current" data-slider-index="1" style="width: 960px;"><div class="item blend-img-item item-full-iroc">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_iroc.png" alt="Detailed Image ROCAUC" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item is-slide-next" data-slider-index="2" style="width: 960px;"><div class="item blend-img-item item-full-proc">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_proc.png" alt="Detailed Pixel-wise ROCAUC" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item" data-slider-index="3" data-cloned="true" style="width: 960px;"><div class="item blend-img-item item-full-pro">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_pro.png" alt="Detailed PRO" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item" data-slider-index="4" data-cloned="true" style="width: 960px;"><div class="item blend-img-item item-full-iroc">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_iroc.png" alt="Detailed Image ROCAUC" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item" data-slider-index="5" data-cloned="true" style="width: 960px;"><div class="item blend-img-item item-full-proc">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_proc.png" alt="Detailed Pixel-wise ROCAUC" class="center-image blend-img-background" loading="lazy">
+        </div></div><div class="slider-item" data-slider-index="6" data-cloned="true" style="width: 960px;"><div class="item blend-img-item item-full-pro">
+          <img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/full_pro.png" alt="Detailed PRO" class="center-image blend-img-background" loading="lazy">
+        </div></div></div>
+  <div class="slider-navigation-previous"><svg viewBox="0 0 50 80" xml:space="preserve">
+      <polyline fill="currentColor" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="45.63,75.8 0.375,38.087 45.63,0.375 "></polyline>
+    </svg></div>
+<div class="slider-navigation-next"><svg viewBox="0 0 50 80" xml:space="preserve">
+      <polyline fill="currentColor" stroke-width=".5em" stroke-linecap="round" stroke-linejoin="round" points="0.375,0.375 45.63,38.087 0.375,75.8 "></polyline>
+    </svg></div><div class="slider-pagination"><div class="slider-page" data-index="0"></div><div class="slider-page" data-index="1"></div><div class="slider-page is-active" data-index="2"></div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!--BibTex citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <div class="bibtex-header">
+      <h2 class="title">BibTeX</h2>
+      <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+        <svg class="svg-inline--fa fa-copy fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="copy" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg><!-- <i class="fas fa-copy"></i> Font Awesome fontawesome.com -->
+        <span class="copy-text">Copy</span>
+      </button>
+    </div>
+    <pre id="bibtex-code"><code>@inproceedings{horwitz2023back,
+  title={Back to the feature: classical 3d features are (almost) all you need for 3d anomaly detection},
+  author={Horwitz, Eliahu and Hoshen, Yedid},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={2968--2977},
+  year={2023}
+}</code></pre>
+  </div>
+</section>
+<!--End BibTex citation -->
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p class="has-text-centered">
+            This work was supported in part by Oracle Cloud credits and related resources provided by the Oracle for Research program. 
+            <br> 
+            <a href="https://www.oracle.com/research" target="_blank"> https://www.oracle.com/research</a>
+        </p>
+        <p>
+           <a href="https://www.oracle.com/research" target="_blank"><img src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/ofr.png" alt="Oracle for Research logo" class="center-image" loading="lazy"></a>
+        </p>
+        <p>
+          This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io/" target="_blank">Nerfies</a> project page.
+          You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+          Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>
+
+<!-- Default Statcounter code for 3D ADS
+http://horwitz.ai/3d_ads/ -->
+<script type="text/javascript">
+var sc_project=12729410; 
+var sc_invisible=1; 
+var sc_security="bf1eff4b"; 
+</script>
+<script type="text/javascript" src="./Back to the Feature_ Classical 3D Features are (Almost) All You Need for 3D Anomaly Detection - Eliahu Horwitz, Yedid Hoshen _ Academic Research_files/counter.js.下载" async=""></script>
+<noscript><div class="statcounter"><a title="Web Analytics"
+href="https://statcounter.com/" target="_blank"><img
+class="statcounter"
+src="https://c.statcounter.com/12729410/0/bf1eff4b/1/"
+alt="Web Analytics"
+referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+<!-- End of Statcounter Code -->
+
+  </main>
+  
+  </body><grammarly-desktop-integration data-grammarly-shadow-root="true"><template shadowrootmode="open"><style>
+      div.grammarly-desktop-integration {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+      }
+
+      div.grammarly-desktop-integration:before {
+        content: attr(data-content);
+      }
+    </style><div aria-label="grammarly-integration" role="group" tabindex="-1" class="grammarly-desktop-integration" data-content="{&quot;mode&quot;:&quot;limited&quot;,&quot;isActive&quot;:false,&quot;isUserDisabled&quot;:false}"></div></template></grammarly-desktop-integration></html>
