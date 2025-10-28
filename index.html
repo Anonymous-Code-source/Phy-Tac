@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phy‑Tac: Physical Tactile Modeling</title>
+  <meta name="description" content="Phy‑Tac project page: paper, code, dataset, demo, and results." />
+  <!-- Optional social sharing -->
+  <meta property="og:title" content="Phy‑Tac: Physical Tactile Modeling" />
+  <meta property="og:description" content="Project page: paper, code, dataset, demo, and results." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/teaser.jpg" />
+  <meta property="og:url" content="https://lyushipeng-pixel.github.io/Phy-Tac/" />
+  <style>
+    :root {
+      --bg: #0b0c10;        /* dark background */
+      --card: #121318;      /* card background */
+      --text: #e6e6e6;      /* primary text */
+      --muted: #a9abb3;     /* secondary text */
+      --brand: #6aa6ff;     /* accent */
+      --brand-2: #a476ff;   /* secondary accent */
+      --ring: rgba(106,166,255,0.35);
+      --radius: 18px;
+      --shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(1200px 600px at 20% -10%, rgba(106,166,255,.12), transparent),
+               radial-gradient(1000px 500px at 80% 0%, rgba(164,118,255,.10), transparent), var(--bg);
+    }
+    a { color: var(--brand); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1050px; margin: 0 auto; padding: 24px; }
+
+    /* header */
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0 8px; }
+    .brand { font-weight: 700; letter-spacing: .2px; color: #fff; }
+    nav a { margin-left: 16px; color: var(--muted); }
+
+    /* hero */
+    .hero { margin-top: 24px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08);
+            border-radius: var(--radius); box-shadow: var(--shadow); }
+    .hero .left { padding: 28px; }
+    h1 { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.15; margin: 0 0 10px; }
+    .subtitle { font-size: 18px; color: var(--muted); margin-bottom: 14px; }
+
+    .authors { display: flex; flex-wrap: wrap; gap: 10px 16px; margin: 12px 0 18px; }
+    .authors a { color: #fff; border-bottom: 1px dashed rgba(255,255,255,.35); }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12);
+             background: rgba(255,255,255,.04); color:#fff; font-weight: 600; }
+    .badge:hover { box-shadow: 0 0 0 3px var(--ring); text-decoration: none; }
+    .badge svg{ width:18px; height:18px; opacity:.9 }
+
+    .hero .teaser { overflow: hidden; }
+    .teaser img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); display: block; }
+
+    /* sections */
+    section { margin-top: 36px; }
+    .section-card { padding: 24px; }
+    h2 { font-size: 24px; margin: 0 0 14px; }
+    .grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .figure { border-radius: 14px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+    .figure img { width:100%; display:block; }
+    .caption { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+    pre.bibtex { background: #0f1117; color: #e6e6e6; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 14px; overflow:auto; }
+
+    footer { color: var(--muted); margin: 36px 0 20px; font-size: 14px; }
+
+    /* responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">Phy‑Tac</div>
+      <nav>
+        <a href="#paper">Paper</a>
+        <a href="#code">Code</a>
+        <a href="#results">Results</a>
+        <a href="#bibtex">BibTeX</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="left card">
+        <h1>Phy‑Tac: Physical Tactile Modeling</h1>
+        <div class="subtitle">Conference/Workshop · 2025 · Project Page</div>
+
+        <div class="authors">
+          <a href="#">First Author</a>,
+          <a href="#">Second Author</a>,
+          <a href="#">Shipeng Lyu</a>
+        </div>
+
+        <div class="subtitle">Affiliations: <span>University / Lab 1</span>, <span>Institute 2</span></div>
+
+        <div class="badges">
+          <a class="badge" id="paper" href="#" target="_blank" rel="noopener">
+            <!-- paper icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            Paper (PDF)
+          </a>
+          <a class="badge" id="code" href="https://github.com/lyushipeng-pixel/Phy-Tac" target="_blank" rel="noopener">
+            <!-- code icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
+            Code (GitHub)
+          </a>
+          <a class="badge" href="#" target="_blank" rel="noopener">
+            <!-- dataset icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
+            Dataset
+          </a>
+          <a class="badge" href="#" target="_blank" rel="noopener">
+            <!-- demo icon -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            Demo Video
+          </a>
+        </div>
+      </div>
+      <div class="teaser card">
+        <img src="assets/teaser.jpg" alt="Phy‑Tac Teaser (replace with your image)" />
+      </div>
+    </section>
+
+    <section id="abstract" class="section-card card">
+      <h2>Abstract</h2>
+      <p>
+        Replace this paragraph with your abstract. Keep it concise: what problem you address, your key idea,
+        and the main results.
+      </p>
+    </section>
+
+    <section id="results" class="section-card card">
+      <h2>Results</h2>
+      <div class="grid">
+        <figure class="figure">
+          <img src="assets/result-1.jpg" alt="Result 1" />
+          <figcaption class="caption">Result 1 caption.</figcaption>
+        </figure>
+        <figure class="figure">
+          <img src="assets/result-2.jpg" alt="Result 2" />
+          <figcaption class="caption">Result 2 caption.</figcaption>
+        </figure>
+        <figure class="figure">
+          <img src="assets/result-3.jpg" alt="Result 3" />
+          <figcaption class="caption">Result 3 caption.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="bibtex" class="section-card card">
+      <h2>BibTeX</h2>
+      <pre class="bibtex">@inproceedings{yourkey2025phytac,
+  title     = {Phy-Tac: Physical Tactile Modeling},
+  author    = {First, A. and Second, B. and Lyu, S.},
+  booktitle = {Proceedings of Some Conference},
+  year      = {2025}
+}</pre>
+    </section>
+
+    <footer>
+      © 2025 Phy‑Tac Authors. Feel free to use this page as a template. If you adapt third‑party templates, keep their license/attribution as required.
+    </footer>
+  </div>
+</body>
+</html>
