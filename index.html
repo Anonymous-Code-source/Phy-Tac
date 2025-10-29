@@ -19,7 +19,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-  <!-- Lightweight CSS inspired by 3D-ADS template -->
   <style>
     :root{--bg:#ffffff;--text:#111;--muted:#4a5568;--brand:#2563eb;--brand2:#10b981;--border:#e5e7eb;--radius:14px}
     *{box-sizing:border-box}
@@ -42,9 +41,9 @@
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;color:#111;font-weight:600}
     .btn:hover{box-shadow:0 0 0 4px rgba(37,99,235,.12);text-decoration:none}
     .btn svg{width:18px;height:18px}
-    /* — 自动换行设置 — */
-    .actions .btn{flex:1 1 220px; justify-content:center;}
-    @media (max-width:600px){ .actions .btn{flex:1 1 100%;} }
+    /* 自动换行 */
+    .actions .btn{flex:1 1 220px;justify-content:center}
+    @media (max-width:600px){.actions .btn{flex:1 1 100%}}
 
     /* cards / teaser */
     .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 6px 24px rgba(17,24,39,.06);padding:22px}
@@ -63,65 +62,36 @@
     pre.bib{background:#0f172a;color:#e5e7eb;padding:14px;border-radius:10px;overflow:auto}
     footer{color:var(--muted);font-size:14px;margin:32px 0 24px;text-align:center}
 
-    /* --- Abstract section alignment --- */
-    #abstract { text-align:center; }
-    #abstract p {
-      text-align:justify; text-justify:inter-word;
-      margin:0 auto; max-width:900px; line-height:1.75;
-    }
+    /* Abstract 排版 */
+    #abstract{text-align:center}
+    #abstract p{text-align:justify;text-justify:inter-word;margin:0 auto;max-width:900px;line-height:1.75}
 
-    /* --- slider --- */
-    #step-breakdown .slider {
-      position: relative;
-      display: grid;
-      grid-template-columns: 40px 1fr 40px;
-      align-items: center;
-      gap: 8px;
-    }
-    #step-breakdown .viewport {
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-    }
-    #step-breakdown .track {
-      display: flex;
-      transition: transform .35s ease;
-      will-change: transform;
-      touch-action: pan-y; /* 改善触控体验，避免与页面滚动冲突 */
-    }
-    #step-breakdown .slide { min-width: 100%; margin: 0; background: #fff; }
-    #step-breakdown .slide img { width: 100%; height: auto; display: block; }
-    #step-breakdown .nav {
-      height: 40px; width: 40px; border-radius: 50%;
-      border: 1px solid var(--border); background: #fff;
-      cursor: pointer; font-size: 22px; line-height: 1;
-    }
-    #step-breakdown .nav:hover { box-shadow: 0 0 0 4px rgba(37,99,235,.12); }
-    #step-breakdown .dots { display:flex; justify-content:center; gap:8px; margin-top:10px; }
-    #step-breakdown .dot {
-      width:9px; height:9px; border-radius:50%;
-      background:#cbd5e1; border:none; cursor:pointer;
-    }
-    #step-breakdown .dot.active { background:#2563eb; }
+    /* --- 通用 slider 样式（图片与视频通用） --- */
+    .slider{position:relative;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:8px}
+    .viewport{overflow:hidden;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05)}
+    .track{display:flex;transition:transform .35s ease;will-change:transform;touch-action:pan-y}
+    .slide{min-width:100%;margin:0;background:#fff}
+    .slide img,.slide video{width:100%;height:auto;display:block;background:#000}
+    .nav{height:40px;width:40px;border-radius:50%;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:22px;line-height:1;z-index:2}
+    .nav:hover{box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+    .dots{display:flex;justify-content:center;gap:8px;margin-top:10px}
+    .dot{width:9px;height:9px;border-radius:50%;background:#cbd5e1;border:none;cursor:pointer}
+    .dot.active{background:#2563eb}
+    @media (max-width:900px){.grid3{grid-template-columns:1fr}.slider{grid-template-columns:32px 1fr 32px}.nav{height:32px;width:32px;font-size:18px}}
 
+    /* 双视频并排（同一页） */
+    .slide-content{
+      display:flex;
+      gap:4px;                 /* 间距从10px缩小为4px */
+      justify-content:space-between;
+    }
+    .slide-content video{
+      width:30%;
+      border-radius:6px;
+    }
     @media (max-width:900px){
-      .grid3{grid-template-columns:1fr}
-      #step-breakdown .slider { grid-template-columns: 32px 1fr 32px; }
-      #step-breakdown .nav { height:32px; width:32px; font-size:18px; }
-    }
-    /* 确保左右按钮在最上层可点击 */
-    #step-breakdown .slider { position: relative; }
-    #step-breakdown .nav { z-index: 2; }
-
-    /* 让 viewport 有可靠宽度，避免初次为 0 */
-    #step-breakdown .viewport { width: 100%; }
-
-    /* 图片占满并统一比例（可选） */
-    #step-breakdown .slide img {
-      width: 100%;
-      height: auto;
-      display: block;
+      .slide-content{flex-direction:column;gap:10px;} /* 移动端保留间隔 */
+      .slide-content video{width:100%;}
     }
   </style>
 </head>
@@ -166,16 +136,13 @@
           Trained on a physics-conditioned tactile dataset covering diverse objects and contact conditions, the proposed Phy-LDM achieves superior tactile prediction accuracy, while the Phy-Tac outperforms fixed-force and GraspNet-based baselines in grasp stability and force efficiency.
           Experiments on classical robotic platforms demonstrate force-efficient and adaptive manipulation that bridges the gap between robotic and human grasping.
         </p>
-        <!--Figure -->
         <figure style="margin-top:20px;">
           <img src="./Assets/DescriptionFigureV5.png" alt="Overview of Phy-Tac" style="width:100%; border-radius:12px;">
-          <figcaption style="color:#555; font-size:14px; margin-top:6px;">
-            Comparison of human grasping strategy (a) and Phy-Tac framework (b) for FOSG.
-          </figcaption>
+          <figcaption class="cap">Comparison of human grasping strategy (a) and Phy-Tac framework (b) for FOSG.</figcaption>
         </figure>
       </section>
 
-      <!-- Object's attributes -->
+      <!-- Attributes -->
       <section id="attributes" class="card">
         <h2>What object's attribute matters?</h2>
         <div class="grid1">
@@ -195,49 +162,83 @@
         <p>Step 3: Drive the gripper toward the target in latent tactile space using LQR for stable closure with minimal necessary force.</p>
       </section>
 
-      <!-- Step Level Breakdown (slider) -->
-      <section id="step-breakdown" class="card">
+      <!-- Step Level Breakdown (Images) -->
+      <section id="step-breakdown" class="card slider-root" data-auto="3000" data-type="image">
         <h2>Step Level Breakdown</h2>
-
         <div class="slider">
           <button class="nav prev" aria-label="Previous">‹</button>
-
           <div class="viewport">
             <div class="track">
+              <figure class="slide"><img src="./Assets/1.PNG" alt=""></figure>
+              <figure class="slide"><img src="./Assets/2.PNG" alt=""></figure>
+              <figure class="slide"><img src="./Assets/3.PNG" alt=""></figure>
+              <figure class="slide"><img src="./Assets/4.PNG" alt=""></figure>
+              <figure class="slide"><img src="./Assets/5.PNG" alt=""></figure>
+            </div>
+          </div>
+          <button class="nav next" aria-label="Next">›</button>
+        </div>
+        <div class="dots" aria-label="Slides"></div>
+      </section>
+
+      <!-- Step Level Breakdown (Dual Videos in one slide page) -->
+      <section id="step-breakdown-video" class="card slider-root" data-auto="3000" data-type="video">
+        <h2>Real Experiments</h2>
+        <div class="slider">
+          <button class="nav prev" aria-label="Previous">‹</button>
+          <div class="viewport">
+            <div class="track">
+              <!-- Slide 1: 两个视频并排 -->
               <figure class="slide">
-                <img src="./Assets/1.PNG" alt="Texture effect">
-                <figcaption class="cap">Texture effect</figcaption>
+                <div class="slide-content">
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/01.mp4" type="video/mp4">
+                  </video>
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/02.mp4" type="video/mp4">
+                  </video>
+                </div>
               </figure>
+
+              <!-- Slide 2: 两个视频并排 -->
               <figure class="slide">
-                <img src="./Assets/2.PNG" alt="Mass distribution">
-                <figcaption class="cap">Mass distribution</figcaption>
+                <div class="slide-content">
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/03.mp4" type="video/mp4">
+                  </video>
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/05.mp4" type="video/mp4">
+                  </video>
+                </div>
               </figure>
+
+              <!-- Slide 3: 两个视频并排 -->
               <figure class="slide">
-                <img src="./Assets/3.PNG" alt="Geometry curvature">
-                <figcaption class="cap">Geometry curvature</figcaption>
+                <div class="slide-content">
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/06.mp4" type="video/mp4">
+                  </video>
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/07.mp4" type="video/mp4">
+                  </video>
+                </div>
               </figure>
+              <!-- Slide 4: 两个视频并排 -->
               <figure class="slide">
-                <img src="./Assets/4.PNG" alt="Contact pattern">
-                <figcaption class="cap">Contact pattern</figcaption>
-              </figure>
-              <figure class="slide">
-                <img src="./Assets/5.PNG" alt="Force map">
-                <figcaption class="cap">Force map</figcaption>
+                <div class="slide-content">
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/08.mp4" type="video/mp4">
+                  </video>
+                  <video class="slide-media" muted playsinline loop preload="metadata">
+                    <source src="./Assets/09.mp4" type="video/mp4">
+                  </video>
+                </div>
               </figure>
             </div>
           </div>
-
           <button class="nav next" aria-label="Next">›</button>
         </div>
-
-        <!-- dots = 5 -->
-        <div class="dots" aria-label="Slides">
-          <button class="dot" data-i="0" aria-label="Go to slide 1"></button>
-          <button class="dot" data-i="1" aria-label="Go to slide 2"></button>
-          <button class="dot" data-i="2" aria-label="Go to slide 3"></button>
-          <button class="dot" data-i="3" aria-label="Go to slide 4"></button>
-          <button class="dot" data-i="4" aria-label="Go to slide 5"></button>
-        </div>
+        <div class="dots" aria-label="Slides"></div>
       </section>
 
       <footer>
@@ -245,94 +246,133 @@
       </footer>
     </div>
   </main>
+
+  <!-- 多轮播逻辑：自动轮播、悬停暂停、拖拽/箭头/指示点切换；视频页自动播放 -->
   <script>
-    (function(){
-      // 等 DOM 就绪
-      document.addEventListener('DOMContentLoaded', () => {
-        const root = document.getElementById('step-breakdown');
-        if (!root) return;
-    
-        const track = root.querySelector('.track');
-        const viewport = root.querySelector('.viewport');
-        const slides = Array.from(root.querySelectorAll('.slide'));
-        const prev = root.querySelector('.prev');
-        const next = root.querySelector('.next');
-        const dotsWrap = root.querySelector('.dots');
-    
-        if (!track || !viewport || slides.length === 0 || !prev || !next || !dotsWrap) return;
-    
-        // 动态生成 dots，保证数量匹配
-        dotsWrap.innerHTML = slides.map((_, k) =>
-          `<button class="dot" data-i="${k}" aria-label="Go to slide ${k+1}"></button>`
-        ).join('');
-        const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
-    
-        let i = 0;
-        let w = 0;
-    
-        function measure() { w = viewport.getBoundingClientRect().width || viewport.clientWidth || 0; }
-        function activateDot() { dots.forEach((d, k) => d.classList.toggle('active', k === i)); }
-        function go(idx, animate = true) {
-          i = (idx + slides.length) % slides.length;
-          if (animate) track.style.transition = 'transform .35s ease';
-          else track.style.transition = 'none';
-          track.style.transform = `translateX(${-i * w}px)`;
-          activateDot();
-        }
-    
-        // 事件
-        prev.addEventListener('click', () => go(i - 1));
-        next.addEventListener('click', () => go(i + 1));
-        dots.forEach((d, k) => d.addEventListener('click', () => go(k)));
-    
-        // 拖拽 / 触摸
-        let startX = 0, dx = 0, dragging = false;
-        track.addEventListener('pointerdown', e => {
-          dragging = true; startX = e.clientX;
-          track.setPointerCapture(e.pointerId);
-          track.style.transition = 'none';
-        });
-        track.addEventListener('pointermove', e => {
-          if (!dragging) return;
-          dx = e.clientX - startX;
-          track.style.transform = `translateX(${-i * w + dx}px)`;
-        });
-        track.addEventListener('pointerup', () => {
-          dragging = false;
-          const threshold = Math.min(120, w * 0.25);
-          if (dx > threshold) go(i - 1);
-          else if (dx < -threshold) go(i + 1);
-          else go(i);
-          dx = 0;
-        });
-    
-        // 图片加载完成后再测量宽度
-        function imagesLoaded(node) {
-          const imgs = Array.from(node.querySelectorAll('img'));
-          if (imgs.length === 0) return Promise.resolve();
-          return Promise.all(imgs.map(img => img.complete ? Promise.resolve() :
-            new Promise(res => { img.addEventListener('load', res, {once:true}); img.addEventListener('error', res, {once:true}); })
-          ));
-        }
-    
-        // 防抖的 resize
-        let rAF;
-        function onResize() {
-          if (rAF) cancelAnimationFrame(rAF);
-          rAF = requestAnimationFrame(() => {
-            measure();
-            go(i, false);
+  document.addEventListener('DOMContentLoaded', () => {
+    const roots = Array.from(document.querySelectorAll('.slider-root'));
+
+    function initSlider(root){
+      const type     = root.dataset.type || 'image';        // 'image' | 'video'
+      const interval = parseInt(root.dataset.auto || '3000', 10);
+
+      const track    = root.querySelector('.track');
+      const viewport = root.querySelector('.viewport');
+      const prev     = root.querySelector('.prev');
+      const next     = root.querySelector('.next');
+      const dotsWrap = root.querySelector('.dots');
+      const slides   = Array.from(root.querySelectorAll('.slide'));
+
+      if (!track || !viewport || slides.length === 0 || !prev || !next || !dotsWrap) return;
+
+      // 生成小圆点
+      dotsWrap.innerHTML = slides.map((_, k) =>
+        `<button class="dot" data-i="${k}" aria-label="Go to slide ${k+1}"></button>`
+      ).join('');
+      const dots = Array.from(dotsWrap.querySelectorAll('.dot'));
+
+      let i = 0, w = 0, timer = null;
+
+      function measure(){ w = viewport.getBoundingClientRect().width || viewport.clientWidth || 0; }
+      function activateDot(){ dots.forEach((d,k)=>d.classList.toggle('active', k===i)); }
+
+      // 视频页播放控制：本页两个都 play，其它页 pause
+      function playCurrent(){
+        if (type !== 'video') return;
+        const allVideos = Array.from(root.querySelectorAll('video'));
+        // 每页 2 个视频，索引范围 [i*2, i*2+1] 只是经验；更安全做法：以 slide 为单位遍历
+        slides.forEach((slide, idx)=>{
+          const vids = Array.from(slide.querySelectorAll('video'));
+          vids.forEach(v => {
+            if (idx === i) { v.muted = true; v.play().catch(()=>{}); }
+            else { v.pause(); /* v.currentTime = 0; 如需切走从头播放可解开 */ }
           });
-        }
-        window.addEventListener('resize', onResize);
-    
-        // 初始化：先等图片，再测量，再定位
-        imagesLoaded(track).then(() => {
-          measure();
-          go(0, false);
         });
+      }
+
+      function go(idx, animate = true){
+        i = (idx + slides.length) % slides.length;
+        track.style.transition = animate ? 'transform .35s ease' : 'none';
+        track.style.transform  = `translateX(${-i * w}px)`;
+        activateDot();
+        playCurrent();
+      }
+
+      // 自动轮播
+      function startAuto(){ stopAuto(); if (interval>0) timer = setInterval(()=>go(i+1), interval); }
+      function stopAuto(){ if (timer){ clearInterval(timer); timer = null; } }
+      function userAction(fn){ return (...args)=>{ fn(...args); startAuto(); }; }
+
+      // 点击事件：左右按钮 & dots
+      prev.addEventListener('click', userAction(()=> go(i-1)));
+      next.addEventListener('click', userAction(()=> go(i+1)));
+      dots.forEach((d,k)=> d.addEventListener('click', userAction(()=> go(k))));
+
+      // 拖拽/触摸
+      let startX=0, dx=0, dragging=false;
+      track.addEventListener('pointerdown', e=>{
+        dragging = true; startX = e.clientX;
+        track.setPointerCapture(e.pointerId);
+        track.style.transition = 'none';
+        stopAuto();
       });
-    })();
-    </script>
+      track.addEventListener('pointermove', e=>{
+        if (!dragging) return;
+        dx = e.clientX - startX;
+        track.style.transform = `translateX(${-i*w + dx}px)`;
+      });
+      track.addEventListener('pointerup', ()=>{
+        dragging = false;
+        const th = Math.min(120, w*0.25);
+        if (dx >  th) go(i-1);
+        else if (dx < -th) go(i+1);
+        else go(i);
+        dx = 0;
+        startAuto();
+      });
+
+      // 悬停暂停/恢复
+      viewport.addEventListener('mouseenter', stopAuto);
+      viewport.addEventListener('mouseleave', startAuto);
+
+      // 可见性变化（切后台暂停）
+      document.addEventListener('visibilitychange', ()=> {
+        if (document.hidden) stopAuto(); else startAuto();
+      });
+
+      // 自适应
+      let rAF;
+      window.addEventListener('resize', ()=>{
+        if (rAF) cancelAnimationFrame(rAF);
+        rAF = requestAnimationFrame(()=> { measure(); go(i,false); });
+      });
+
+      // 资源就绪后初始化（图片或视频）
+      const medias = Array.from(root.querySelectorAll(type === 'video' ? 'video' : 'img'));
+      const whenReady = () => {
+        const ps = medias.map(m => {
+          if (m.tagName === 'VIDEO') {
+            return (m.readyState >= 1)
+              ? Promise.resolve()
+              : new Promise(res => m.addEventListener('loadedmetadata', res, {once:true}));
+          } else { // IMG
+            return m.complete ? Promise.resolve()
+              : new Promise(res => { m.addEventListener('load',res,{once:true}); m.addEventListener('error',res,{once:true}); });
+          }
+        });
+        return Promise.all(ps);
+      };
+
+      whenReady().then(()=>{
+        measure();
+        go(0,false);
+        startAuto();
+      });
+    }
+
+    // 初始化所有轮播实例
+    roots.forEach(initSlider);
+  });
+  </script>
 </body>
 </html>
