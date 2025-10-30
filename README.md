@@ -48,7 +48,7 @@ pip install -r requirements.txt  # Note: You may need to create this file
 Train the Variational Autoencoder with the new loss function:
 
 ```bash
-python train_vae_xsense_SD_new_loss.py --config vae.yaml
+python train_vae.py --config vae.yaml
 ```
 
 Configuration options can be modified in `vae.yaml`:
@@ -63,7 +63,7 @@ Configuration options can be modified in `vae.yaml`:
 Train the Latent Diffusion Model (new version):
 
 ```bash
-python train_ldm_xsense_new_vesion.py --config ldm.yaml
+python train_ldm.py --config ldm.yaml
 ```
 
 Configuration options can be modified in `ldm.yaml`:
