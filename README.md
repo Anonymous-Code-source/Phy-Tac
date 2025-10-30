@@ -3,8 +3,8 @@
 A deep learning framework for physics-informed tactile data generation using Variational Autoencoders (VAE) and Latent Diffusion Models (LDM).
 
 ## 📋 Overview
-
 Phy-Tac is a research project that leverages generative models to process and synthesize tactile sensor data. The framework combines VAE for feature extraction and LDM for high-quality tactile data generation.
+
 
 ## 🏗️ Project Structure
 
@@ -49,7 +49,7 @@ Train the Variational Autoencoder with the new loss function:
 
 ```bash
 python train_vae.py --config vae.yaml
-```
+
 
 Configuration options can be modified in `vae.yaml`:
 - Learning rate
@@ -64,7 +64,7 @@ Train the Latent Diffusion Model (new version):
 
 ```bash
 python train_ldm.py --config ldm.yaml
-```
+
 
 Configuration options can be modified in `ldm.yaml`:
 - Diffusion timesteps
@@ -124,6 +124,8 @@ The framework achieves:
 - Realistic tactile data generation
 - Physics-consistent outputs
 - Efficient latent space representation
+
+
 
 ## 🔗 Related Projects
 
