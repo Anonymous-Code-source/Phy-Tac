@@ -80,19 +80,30 @@
     @media (max-width:900px){.grid3{grid-template-columns:1fr}.slider{grid-template-columns:32px 1fr 32px}.nav{height:32px;width:32px;font-size:18px}}
 
     /* 双视频并排（同一页） */
-    .slide-content{
-      display:flex;
-      gap:4px;                 /* 间距从10px缩小为4px */
-      justify-content:space-between;
+    .slide-content {
+      display: flex;
+      justify-content: center;   /* 让整体居中 */
+      align-items: center;
+      gap: 110px;                  /* 控制间距，可改为 4px / 6px / 12px 等 */
     }
-    .slide-content video{
-      width:30%;
-      border-radius:6px;
+
+    .slide-content video {
+      width: calc(30% - 18px);    /* 减去一半gap宽度，确保不会换行 */
+      border-radius: 8px;
+      margin: 0;
+      display: block;
     }
-    @media (max-width:900px){
-      .slide-content{flex-direction:column;gap:10px;} /* 移动端保留间隔 */
-      .slide-content video{width:100%;}
+
+    @media (max-width: 900px) {
+      .slide-content {
+        flex-direction: column;  /* 小屏上下排列 */
+        gap: 29px;               /* 移动端间距稍大 */
+      }
+      .slide-content video {
+        width: 100%;
+      }
     }
+
   </style>
 </head>
 
@@ -105,29 +116,34 @@
         <div class="actions">
           <a class="btn" href="./Assets/Optimal_force_stability_for_robotic_grasping.pdf" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-            Paper (PDF)
+            Paper
           </a>
           <a class="btn" href="https://github.com/lyushipeng-pixel/Phy-Tac" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg>
-            Code (GitHub)
+            Code
           </a>
           <a class="btn" href="#" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg>
             Dataset
           </a>
         </div>
-        <div class="teaser" style="margin-top:20px;">
+        <div class="teaser" style="margin-top:24px;">
           <video width="100%" controls poster="static/images/teaser.jpg">
             <source src="./Assets/Phy-TacVideo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
+          <p style="text-align:justify; color:#4a5568; margin-top:8px; font-size:20px;">
+            We aim to enable robots to grasp like humans — using physics-aware tactile intelligence for stable, adaptive, and force-optimal interaction.
+          </p>
         </div>
       </section>
 
       <!-- ABSTRACT -->
       <section id="abstract" class="card">
-        <h2>Abstract</h2>
-        <p>
+        <h2 style="font-size:30px; font-weight:800; text-align:center; margin-bottom:18px;">
+          Abstract
+        </h2>
+        <p style="text-align:justify; text-justify:inter-word; font-size:20px; line-height:1.85; color:#111; margin:0 auto; max-width:900px;">
           Humans naturally grasp objects with minimal level required force for stability, whereas robots often rely on rigid, over-squeezing control.
           To narrow this gap, we propose a human-inspired physics-conditioned tactile method (Phy-Tac) for force-optimal stable grasping (FOSG) that unifies pose selection, tactile prediction, and force regulation.
           A physics-based pose selector first identifies feasible contact regions with optimal force distribution based on surface geometry. 
@@ -138,28 +154,40 @@
         </p>
         <figure style="margin-top:20px;">
           <img src="./Assets/DescriptionFigureV5.png" alt="Overview of Phy-Tac" style="width:100%; border-radius:12px;">
-          <figcaption class="cap">Comparison of human grasping strategy (a) and Phy-Tac framework (b) for FOSG.</figcaption>
+          <!-- <figcaption class="cap">Comparison of human grasping strategy (a) and Phy-Tac framework (b) for FOSG.</figcaption> -->
         </figure>
       </section>
 
       <!-- Attributes -->
       <section id="attributes" class="card">
-        <h2>What object's attribute matters?</h2>
+        <h2 style="font-size:30px; font-weight:800; text-align:left; margin-bottom:18px;">
+          What object's attribute matters?
+        </h2>
         <div class="grid1">
           <figure class="fig"><img src="./Assets/factors-v1.png" alt="Attribute factors" /></figure>
         </div>
-        <p class="cap">Texture, mass, geometry, and material stiffness contribute differently to tactile imprint formation during grasping.</p>
+        <p style="text-align:justify; text-justify:inter-word; font-size:20px; line-height:1.85; color:#111; margin:0 auto; max-width:900px;">
+          Texture, mass, geometry, and material stiffness contribute differently to tactile imprint formation during grasping.
+        </p>
       </section>
 
       <!-- Method -->
       <section id="method" class="card">
-        <h2>Phy-Tac framework</h2>
+        <h2 style="font-size:30px; font-weight:800; text-align:left; margin-bottom:18px;">
+          Phy-Tac framework
+        </h2>
         <div class="grid1">
           <figure class="fig"><img src="./Assets/Method_description-v7.png" alt="Phy-Tac framework" /></figure>
         </div>
-        <p>Step 1: Select contact poses with better physical consistency to achieve uniform force distribution.</p>
-        <p>Step 2: Generate force-optimal target tactile images via physics-conditioned latent diffusion.</p>
-        <p>Step 3: Drive the gripper toward the target in latent tactile space using LQR for stable closure with minimal necessary force.</p>
+        <p style="text-align:justify; text-justify:inter-word; font-size:20px; line-height:1.85; color:#111; margin:0 auto; max-width:900px;">
+          S1: Select contact poses with better physical consistency to achieve uniform force distribution.
+        </p>
+        <p style="text-align:justify; text-justify:inter-word; font-size:20px; line-height:1.85; color:#111; margin:0 auto; max-width:900px;">
+          S2: Generate force-optimal target tactile images via physics-conditioned latent diffusion.
+        </p>
+        <p style="text-align:justify; text-justify:inter-word; font-size:20px; line-height:1.85; color:#111; margin:0 auto; max-width:900px;">
+          S3: Drive the gripper toward the target in latent tactile space using LQR for stable closure with minimal necessary force.
+        </p>
       </section>
 
       <!-- Step Level Breakdown (Images) -->
@@ -174,6 +202,7 @@
               <figure class="slide"><img src="./Assets/3.PNG" alt=""></figure>
               <figure class="slide"><img src="./Assets/4.PNG" alt=""></figure>
               <figure class="slide"><img src="./Assets/5.PNG" alt=""></figure>
+              <figure class="slide"><img src="./Assets/6.PNG" alt=""></figure>
             </div>
           </div>
           <button class="nav next" aria-label="Next">›</button>
@@ -241,9 +270,9 @@
         <div class="dots" aria-label="Slides"></div>
       </section>
 
-      <footer>
+      <!-- <footer>
         This page is adapted from the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank" rel="noopener">Academic Project Page Template</a>, originally inspired by <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a>. Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Please keep attribution if you reuse this page.
-      </footer>
+      </footer> -->
     </div>
   </main>
 
