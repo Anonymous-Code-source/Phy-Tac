@@ -1,24 +1,23 @@
 # ============================================================================
-# 配置文件：configs/vae_sd_xsense.yaml  —— 复制以下 YAML 内容原样保存
 # ============================================================================
-# -------------- 基础 --------------
+# -------------- --------------
 work_dir: /code/Xense_tactile/Results_SD/vae_sd_new_loss
 data_root_prefix: /data/LyuShipeng/Xsense_dataset/Xsense_dataset
 train_meta: /code/Xense_tactile/dataset/train.jsonl
 val_meta:   /code/Xense_tactile/dataset/val.jsonl
 
-# -------------- 数据尺寸 --------------
+# -------------- --------------
 image_h: 700
 image_w: 400
 
-# -------------- 模型 --------------
+# --------------  --------------
 base_ch: 64
 ch_mult: [1, 2, 4, 4]
 num_res_blocks: 2
 z_ch: 4
 attn_mid: true
 
-# -------------- 优化与训练 --------------
+# --------------  --------------
 seed: 2024
 batch_size: 16
 num_workers: 12
@@ -35,16 +34,16 @@ save_every: 50
 debug_on_nan: true
 val_save_n: 20
 
-# -------------- 新增：保存策略 --------------
-best_by: 'lpips'   # 可选: 'lpips' | 'loss' | 'auto'（默认）
-save_last: true                # 每个 epoch 保存/覆盖 last.pt（完整态）
-export_model_only: true        # 导出仅含 model.state_dict() 的轻量权重
-export_best_name: vae_best_model.pt  # LDM 直接加载这个
-export_last_name: vae_last_model.pt  # 最近一次轻量权重
+# --------------  --------------
+best_by: 'lpips'   # 'lpips' | 'loss' | 'auto'）
+save_last: true                # 
+export_model_only: true        # 
+export_best_name: vae_best_model.pt  # 
+export_last_name: vae_last_model.pt  #
 
 
 # --- Feature Matching / Perceptual Loss (LPIPS) ---
-fm_kind: "lpips" # ["lpips", "none"]；设为 "none" 或 fm_weight=0 可关闭
-fm_weight: 0.2 # 感知损失权重（建议 0.05~0.2 起步）
-fm_warmup_epochs: 3 # 前几轮线性拉满（0 表示不启用 warmup）
-fm_every_n_steps: 1 # 每 N 个 step 计算一次 LPIPS（>1 可省算力）
+fm_kind: "lpips" # ["lpips", "none"]；
+fm_weight: 0.2 #
+fm_warmup_epochs: 3 # 
+fm_every_n_steps: 1 # 
