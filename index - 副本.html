@@ -20,35 +20,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --page-bg:#f8fafc;   /* 页面的纯色边缘背景 */
-      --text:#111;
-      --muted:#4a5568;
-      --brand:#2563eb;
-      --brand2:#10b981;
-      --border:#e5e7eb;
-      --radius:14px;
-
-      /* 仅内容带着色的“贴片”宽度：≈ container(980) + 两侧少量溢出 */
-      --bandw: 1040px;
-
-      /* 双色块颜色（按需可调整为你喜欢的浅色系） */
-      --band-odd:#ffffff;
-      --band-even:#f6f8fa;
-    }
-
+    :root{--bg:#ffffff;--text:#111;--muted:#4a5568;--brand:#2563eb;--brand2:#10b981;--border:#e5e7eb;--radius:14px}
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-      line-height:1.6;
-      color:var(--text);
-      background:var(--page-bg); /* 边缘保持纯色 */
-    }
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;color:var(--text);background:linear-gradient(180deg,#fff,#f8fafc)}
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
-
     .container{max-width:980px;margin:0 auto;padding:24px}
 
     /* hero */
@@ -64,47 +41,21 @@
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid var(--border);border-radius:12px;background:#fff;color:#111;font-weight:600}
     .btn:hover{box-shadow:0 0 0 4px rgba(37,99,235,.12);text-decoration:none}
     .btn svg{width:18px;height:18px}
+    /* 自动换行 */
     .actions .btn{flex:1 1 220px;justify-content:center}
     @media (max-width:600px){.actions .btn{flex:1 1 100%}}
 
-    /* 去卡片化，但保留内边距作为呼吸感 */
-    .card{
-      border:none;
-      border-radius:0;
-      box-shadow:none;
-      background:transparent;
-      padding:60px 22px;
-    }
+    /* cards / teaser */
+    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 6px 24px rgba(17,24,39,.06);padding:22px}
+    .teaser{margin-top:14px;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+    .teaser img,.teaser video{width:100%;display:block}
 
-    /* section 仅负责内外距，背景交给“中心贴片”绘制 */
-    section{
-      margin:0;
-      padding-top:70px;
-      padding-bottom:70px;
-      background:none; /* 不全宽铺色 */
-      position:relative;
-    }
-
-    /* —— 关键：用“中心贴片”在内容带上画双色 —— */
-    section:nth-of-type(odd){
-      background:
-        linear-gradient(var(--band-odd), var(--band-odd))
-        center / min(var(--bandw), 100%) 100% no-repeat;
-    }
-    section:nth-of-type(even){
-      background:
-        linear-gradient(var(--band-even), var(--band-even))
-        center / min(var(--bandw), 100%) 100% no-repeat;
-    }
-
-    /* 章节之间的细分隔线（全宽，若想更“整块”可删除） */
-    section + section{ border-top:1px solid var(--border); }
-
-    /* grids & figures */
+    /* sections */
+    section{margin-top:28px}
     h2{margin:0 0 10px}
     .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
     .grid1{display:grid;grid-template-columns:1fr;gap:14px}
-    .fig{border:none;border-radius:12px;overflow:hidden;background:transparent}
+    .fig{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
     .fig img{display:block;width:100%}
     .cap{color:var(--muted);font-size:14px;margin-top:6px}
 
@@ -113,15 +64,7 @@
 
     /* Abstract 排版 */
     #abstract{text-align:center}
-    #abstract p{
-      text-align:justify;
-      text-justify:inter-word;
-      margin:0 auto;
-      max-width:900px;
-      line-height:1.85;
-      font-size:18px;
-      color:#111;
-    }
+    #abstract p{text-align:justify;text-justify:inter-word;margin:0 auto;max-width:900px;line-height:1.75}
 
     /* --- 通用 slider 样式（图片与视频通用） --- */
     .slider{position:relative;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:8px}
@@ -134,29 +77,33 @@
     .dots{display:flex;justify-content:center;gap:8px;margin-top:10px}
     .dot{width:9px;height:9px;border-radius:50%;background:#cbd5e1;border:none;cursor:pointer}
     .dot.active{background:#2563eb}
-    @media (max-width:900px){
-      .grid3{grid-template-columns:1fr}
-      .slider{grid-template-columns:32px 1fr 32px}
-      .nav{height:32px;width:32px;font-size:18px}
-    }
+    @media (max-width:900px){.grid3{grid-template-columns:1fr}.slider{grid-template-columns:32px 1fr 32px}.nav{height:32px;width:32px;font-size:18px}}
 
     /* 双视频并排（同一页） */
-    .slide-content{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:110px;
+    .slide-content {
+      display: flex;
+      justify-content: center;   /* 让整体居中 */
+      align-items: center;
+      gap: 110px;                  /* 控制间距，可改为 4px / 6px / 12px 等 */
     }
-    .slide-content video{
-      width:calc(30% - 18px);
-      border-radius:8px;
-      margin:0;
-      display:block;
+
+    .slide-content video {
+      width: calc(30% - 18px);    /* 减去一半gap宽度，确保不会换行 */
+      border-radius: 8px;
+      margin: 0;
+      display: block;
     }
-    @media (max-width:900px){
-      .slide-content{flex-direction:column;gap:29px}
-      .slide-content video{width:100%}
+
+    @media (max-width: 900px) {
+      .slide-content {
+        flex-direction: column;  /* 小屏上下排列 */
+        gap: 29px;               /* 移动端间距稍大 */
+      }
+      .slide-content video {
+        width: 100%;
+      }
     }
+
   </style>
 </head>
 
@@ -185,7 +132,7 @@
             <source src="./Assets/Phy-TacVideo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <p style="text-align:justify; text-justify:inter-word; color:#4a5568; margin-top:8px; font-size:18px;">
+          <p style="text-align:justify; color:#4a5568; margin-top:8px; font-size:18px;">
             We aim to enable robots to grasp like humans — using physics-aware tactile intelligence for stable, adaptive, and force-optimal interaction.
           </p>
         </div>
@@ -196,7 +143,7 @@
         <h2 style="font-size:30px; font-weight:800; text-align:center; margin-bottom:18px;">
           Abstract
         </h2>
-        <p>
+        <p style="text-align:justify; text-justify:inter-word; font-size:18px; line-height:1.85; color:#111; margin:0 auto; max-width:900px;">
           Humans naturally grasp objects with minimal level required force for stability, whereas robots often rely on rigid, over-squeezing control.
           To narrow this gap, we propose a human-inspired physics-conditioned tactile method (Phy-Tac) for force-optimal stable grasping (FOSG) that unifies pose selection, tactile prediction, and force regulation.
           A physics-based pose selector first identifies feasible contact regions with optimal force distribution based on surface geometry. 
@@ -366,6 +313,7 @@
       function playCurrent(){
         if (type !== 'video') return;
         const allVideos = Array.from(root.querySelectorAll('video'));
+        // 每页 2 个视频，索引范围 [i*2, i*2+1] 只是经验；更安全做法：以 slide 为单位遍历
         slides.forEach((slide, idx)=>{
           const vids = Array.from(slide.querySelectorAll('video'));
           vids.forEach(v => {
