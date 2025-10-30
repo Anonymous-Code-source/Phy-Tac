@@ -1,0 +1,43 @@
+# ============================================================================
+# 配置文件：configs/vae_sd_xsense.yaml  —— 复制以下 YAML 内容原样保存
+# ============================================================================
+# -------------- 基础 --------------
+work_dir: /code/Xense_tactile/Results_SD/vae_sd
+data_root_prefix: /data/LyuShipeng/Xsense_dataset/Xsense_dataset
+train_meta: /code/Xense_tactile/dataset/train.jsonl
+val_meta:   /code/Xense_tactile/dataset/val.jsonl
+
+# -------------- 数据尺寸 --------------
+image_h: 700
+image_w: 400
+
+# -------------- 模型 --------------
+base_ch: 64
+ch_mult: [1, 2, 4, 4]
+num_res_blocks: 2
+z_ch: 4
+attn_mid: true
+
+# -------------- 优化与训练 --------------
+seed: 2024
+batch_size: 16
+num_workers: 12
+epochs: 200
+lr: 1.0e-4
+beta1: 0.9
+beta2: 0.999
+weight_decay: 0.0
+amp: false
+kl_weight: 0.0005
+kl_warmup_epochs: 10
+log_interval: 50
+save_every: 50
+debug_on_nan: true
+val_save_n: 20
+
+# -------------- 新增：保存策略 --------------
+best_by: 'lpips'   # 可选: 'lpips' | 'loss' | 'auto'（默认）
+save_last: true                # 每个 epoch 保存/覆盖 last.pt（完整态）
+export_model_only: true        # 导出仅含 model.state_dict() 的轻量权重
+export_best_name: vae_best_model.pt  # LDM 直接加载这个
+export_last_name: vae_last_model.pt  # 最近一次轻量权重

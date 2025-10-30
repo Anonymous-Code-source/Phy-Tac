@@ -1,0 +1,24 @@
+# infer_vae_scores.yaml — generated to match vae_sd_xsense_new_loss.yaml
+program:
+  train_script_path: train_vae_xsense_SD_new_loss.py
+
+paths:
+  ckpt_dir: /code/Xense_tactile/Results_SD/vae_sd_new_loss/ckpt
+  output_path: ./outputs/vae_scores.txt
+
+model:
+  arch:
+    in_ch: 3
+    out_ch: 3
+    base_ch: 64
+    ch_mult: [1, 2, 4, 4]
+    num_res_blocks: 2
+    z_ch: 4
+    attn_mid: true
+
+scoring:
+  method: channel
+  channel_weights_path:
+  channel_weights_init: ones
+  spatial_weights_path:
+  spatial_sigma_scale: 0.1

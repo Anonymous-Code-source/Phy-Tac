@@ -1,0 +1,12 @@
+{
+  "num_train": 15579,
+  "num_val": 240,
+  "num_test": 74,
+  "total": 15893,
+  "train_ratio": 0.9802428742213554,
+  "val_ratio": 0.015100987856288932,
+  "test_ratio": 0.004656137922355754,
+  "seed": 42,
+  "split_method": "fully_shuffled_with_group_representation",
+  "path_mode": "relative"
+}

@@ -1,0 +1,96 @@
+# =================== Paths ===================
+work_dir: /code/Xense_tactile/Results_SD
+seed: 42
+device: cuda
+
+# =================== Data ===================
+data:
+  img_size: [700, 400]        # 高、宽（与 VAE 训练一致）；VAE 内部会 pad 到 16 的倍数
+  batch_size: 16
+  num_workers: 12
+  pin_memory: true
+  root_prefix: /data/LyuShipeng/Xsense_dataset/Xsense_dataset
+  train_meta: /code/Xense_tactile/dataset/train.jsonl
+  val_meta:   /code/Xense_tactile/dataset/val.jsonl
+
+# =================== VAE (frozen) ===================
+vae:
+  import_path: train_vae_xsense_SD
+  ckpt_path: /code/Xense_tactile/Results_SD/vae_sd_new_loss/ckpt/vae_best_model.pt
+
+  # —— 结构参数（与 VAE 训练时一致）——
+  input_channels: 3
+  output_channels: 3
+  base_ch: 64
+  ch_mult: [1, 2, 4, 4]
+  num_res_blocks: 2
+  attn_mid: true
+  z_channels: 4
+
+# =================== Embedder ===================
+embedder:
+  num_textures: 128
+  embed_dim: 256
+  seq_len: 2
+  use_cmd: false
+  mass_scale: 0.001      # g -> kg
+  mass_log1p: true
+  cond_drop_prob: 0.1
+
+# =================== Diffusion / UNet ===================
+model:
+  base_channels: 128
+  channel_mult: [1, 2, 4]     # 三个尺度（/2,/4,/8）
+  num_res_blocks: 2
+  num_heads: 4
+  attn_resolutions: [1, 2]
+  film: true
+  v_prediction: true          # v-param
+  timesteps: 1000
+  beta_schedule: cosine
+  p_uncond_image: 0.1
+
+# =================== Train ===================
+train:
+  max_steps: 200000
+  lr: 1.0e-4
+  weight_decay: 0.01
+  grad_clip: 1.0
+  ema_decay: 0.999
+  amp: true
+  log_every: 1000
+  val_every: 1000
+  save_every: 10000
+  out_dir: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss
+  keep_n_checkpoints: 5
+  vis_dir: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss/val_vis
+  vis_n: 8
+
+# =================== Loss config (NEW) ===================
+loss_cfg:
+  latent:
+    type: mse            # mse / huber
+    huber_delta: 0.01
+    snr_weighting: true
+    min_snr_gamma: 5.0
+  pixel:
+    enable: true
+    lambda_img: 0.2
+    w_mae: 1.0
+    w_lpips: 0.5
+    schedule: cosine
+    warmup_steps: 2000
+    max_steps: 20000
+
+# =================== Eval / Sample ===================
+sample:
+  ddim_steps: 200
+  guidance_scale: 3.0
+  n_vis: 4
+
+# =================== Logging ===================
+log:
+  use_tqdm: true
+  use_tb: true
+  tb_dir: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss/tb
+  csv_path: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss/log.csv

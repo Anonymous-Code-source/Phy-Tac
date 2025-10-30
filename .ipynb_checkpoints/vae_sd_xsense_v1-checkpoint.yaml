@@ -1,0 +1,29 @@
+# ============================================================================
+# 配置文件：configs/vae_sd_xsense.yaml  —— 复制以下 YAML 内容原样保存
+# ============================================================================
+work_dir: /code/Xense_tactile/Results_SD/vae_sd
+data_root_prefix: /data/LyuShipeng/Xsense_dataset/Xsense_dataset
+train_meta: /code/Xense_tactile/dataset/train.jsonl
+val_meta:   /code/Xense_tactile/dataset/val.jsonl
+image_h: 700
+image_w: 400
+batch_size: 16
+num_workers: 12
+epochs: 50
+lr: 0.0001
+beta1: 0.9
+beta2: 0.999
+weight_decay: 0.0001
+base_ch: 64             # 缩小版主干通道（SD 常见为 128，这里降到 48）
+ch_mult: [1, 2, 4, 4]      # 三个尺度（f=8），可改为 [1,2,4,4] 获得更强大模型（f=16）
+num_res_blocks: 2       # 每尺度的 ResBlock 数
+z_ch: 4                 # 潜通道，SD=4；这里减小到 2（也可设 3/4）
+attn_mid: true          # bottleneck 处启用轻量自注意力
+kl_weight: 0.00001
+kl_warmup_epochs: 10
+amp: false              # 建议先关闭 AMP；稳定后可改 true
+seed: 2024
+log_interval: 50
+save_every: 1
+val_save_n: 8
+debug_on_nan: true

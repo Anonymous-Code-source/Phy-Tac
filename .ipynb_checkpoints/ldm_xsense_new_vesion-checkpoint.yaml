@@ -1,0 +1,94 @@
+# ===== Paths ===================
+work_dir: /code/Xense_tactile/Results_SD
+seed: 42
+device: cuda   # 或 auto/cpu
+
+# =================== Data ===================
+data:
+  img_size: [704, 400]     # 16 的倍数，避免下采样/上采样误差
+  batch_size: 16
+  num_workers: 8
+  pin_memory: true
+  root_prefix: /data/LyuShipeng/Xsense_dataset/Xsense_dataset
+  train_meta: /code/Xense_tactile/dataset/train.jsonl
+  val_meta:   /code/Xense_tactile/dataset/val.jsonl
+
+# =================== VAE (pretrained & frozen) ===================
+vae:
+  import_path: train_vae_xsense_SD       # 你们仓库里VAE实现所在模块
+  input_channels: 3
+  output_channels: 3
+  base_ch: 64
+  ch_mult: [1, 2, 4, 4]
+  num_res_blocks: 2
+  z_channels: 4
+  attn_mid: true
+  ckpt_path: /code/Xense_tactile/Results_SD/vae_sd_new_loss/ckpt/vae_best_model.pt
+
+# =================== Condition Embedder ===================
+embedder:
+  num_textures: 128
+  embed_dim: 256
+  seq_len: 8
+  use_cmd: true
+  mass_scale: 1.0
+  mass_log1p: true
+  cond_drop_prob: 0.05   # 从 0.1 ↓，增强保真
+
+# =================== UNet / Diffusion ===================
+model:
+  base_channels: 128
+  channel_mult: [1, 2, 4]
+  num_res_blocks: 2
+  num_heads: 4
+  attn_resolutions: [1, 2]
+  film: true
+  v_prediction: true
+  timesteps: 1000
+  beta_schedule: cosine
+  p_uncond_image: 0.02   # 从 0.1 ↓，更强条件
+
+# =================== Train ===================
+train:
+  out_dir: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss_new_vision
+  vis_dir: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss_new_vision/vis
+  vis_n: 8
+  amp: true
+  lr: 5.0e-5
+  weight_decay: 0.001
+  ema_decay: 0.9999
+  grad_clip: 1.0
+  log_every: 50
+  val_every: 1000
+  save_every: 5000
+  keep_n_checkpoints: 3
+  max_steps: 200000
+
+# =================== Loss ===================
+loss_cfg:
+  latent:
+    type: huber
+    huber_delta: 0.05
+    snr_weighting: true
+    min_snr_gamma: 2.0   # 从 5.0 ↓，强化低噪声段 → PSNR↑
+  pixel:
+    enable: true
+    lambda_img: 0.4      # 像素项更有权重
+    w_mae: 1.5           # 先冲PSNR
+    w_lpips: 0.2         # LPIPS先弱化，后期可回调0.3~0.5
+    schedule: cosine
+    warmup_steps: 800
+    max_steps: 20000
+
+# =================== Eval / Sample ===================
+sample:
+  ddim_steps: 220
+  guidance_scale: 1.3    # PSNR向；感知向可 2.5~3.5
+  n_vis: 4
+
+# =================== Logging ===================
+log:
+  use_tqdm: true
+  use_tb: true
+  tb_dir: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss_new_vision/tb
+  csv_path: /code/Xense_tactile/Results_SD/ldm_xsense_new_loss_new_vision/log.csv
