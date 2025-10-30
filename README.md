@@ -1,6 +1,4 @@
-# Phy-Tac
-
-A deep learning framework for physics-informed tactile data generation using Variational Autoencoders (VAE) and Latent Diffusion Models (LDM).
+# Phy-Tac: Toward Human-Like Grasping via Physics-Conditioned Tactile Goals
 
 ## 📋 Overview
 Phy-Tac is a research project that leverages generative models to process and synthesize tactile sensor data. The framework combines VAE for feature extraction and LDM for high-quality tactile data generation.
@@ -49,7 +47,7 @@ Train the Variational Autoencoder with the new loss function:
 
 ```bash
 python train_vae.py --config vae.yaml
-
+```
 
 Configuration options can be modified in `vae.yaml`:
 - Learning rate
@@ -64,7 +62,7 @@ Train the Latent Diffusion Model (new version):
 
 ```bash
 python train_ldm.py --config ldm.yaml
-
+```
 
 Configuration options can be modified in `ldm.yaml`:
 - Diffusion timesteps
@@ -99,7 +97,7 @@ The project expects tactile sensor data in the following format:
 - Organized by contact scenarios
 - Metadata including force, position, and object properties
 
-Please organize your data according to the specifications in `dataset/` directory.
+Please download or organize your data according to the specifications in `dataset/` directory.
 
 ## 🔧 Configuration Files
 
@@ -133,15 +131,4 @@ The framework achieves:
 - [VAE variants](https://github.com/AntixK/PyTorch-VAE) - VAE implementations
 - Tactile sensing datasets and benchmarks
 
-
-## 🙏 Acknowledgments
-
-This project builds upon advances in:
-- Generative modeling (VAE, Diffusion Models)
-- Tactile sensing and robotics
-- Physics-informed machine learning
-
----
-
-**Note**: This is a research project. For production use, additional testing and validation are recommended.
 

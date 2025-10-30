@@ -21,7 +21,7 @@
 
   <style>
     :root{
-      --page-bg:#f8fafc;   /* 页面的纯色边缘背景 */
+      --page-bg:#f8fafc;   /*  */
       --text:#111;
       --muted:#4a5568;
       --brand:#2563eb;
@@ -29,10 +29,10 @@
       --border:#e5e7eb;
       --radius:14px;
 
-      /* 仅内容带着色的“贴片”宽度：≈ container(980) + 两侧少量溢出 */
+      /*  */
       --bandw: 1040px;
 
-      /* 双色块颜色（按需可调整为你喜欢的浅色系） */
+      /* ） */
       --band-odd:#ffffff;
       --band-even:#f6f8fa;
     }
@@ -44,7 +44,7 @@
       font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
       line-height:1.6;
       color:var(--text);
-      background:var(--page-bg); /* 边缘保持纯色 */
+      background:var(--page-bg); /*  */
     }
     a{color:var(--brand);text-decoration:none}
     a:hover{text-decoration:underline}
@@ -67,7 +67,7 @@
     .actions .btn{flex:1 1 220px;justify-content:center}
     @media (max-width:600px){.actions .btn{flex:1 1 100%}}
 
-    /* 去卡片化，但保留内边距作为呼吸感 */
+    /*  */
     .card{
       border:none;
       border-radius:0;
@@ -76,16 +76,16 @@
       padding:60px 22px;
     }
 
-    /* section 仅负责内外距，背景交给“中心贴片”绘制 */
+    /* section */
     section{
       margin:0;
       padding-top:70px;
       padding-bottom:70px;
-      background:none; /* 不全宽铺色 */
+      background:none; /*  */
       position:relative;
     }
 
-    /* —— 关键：用“中心贴片”在内容带上画双色 —— */
+    /* ——  —— */
     section:nth-of-type(odd){
       background:
         linear-gradient(var(--band-odd), var(--band-odd))
@@ -97,7 +97,7 @@
         center / min(var(--bandw), 100%) 100% no-repeat;
     }
 
-    /* 章节之间的细分隔线（全宽，若想更“整块”可删除） */
+    /*  */
     section + section{ border-top:1px solid var(--border); }
 
     /* grids & figures */
@@ -111,7 +111,7 @@
     pre.bib{background:#0f172a;color:#e5e7eb;padding:14px;border-radius:10px;overflow:auto}
     footer{color:var(--muted);font-size:14px;margin:32px 0 24px;text-align:center}
 
-    /* Abstract 排版 */
+    /* Abstract*/
     #abstract{text-align:center}
     #abstract p{
       text-align:justify;
@@ -123,7 +123,7 @@
       color:#111;
     }
 
-    /* --- 通用 slider 样式（图片与视频通用） --- */
+    /* ------ */
     .slider{position:relative;display:grid;grid-template-columns:40px 1fr 40px;align-items:center;gap:8px}
     .viewport{overflow:hidden;border:1px solid var(--border);border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,.05)}
     .track{display:flex;transition:transform .35s ease;will-change:transform;touch-action:pan-y}
@@ -140,7 +140,7 @@
       .nav{height:32px;width:32px;font-size:18px}
     }
 
-    /* 双视频并排（同一页） */
+    /*  */
     .slide-content{
       display:flex;
       justify-content:center;
@@ -274,7 +274,7 @@
           <button class="nav prev" aria-label="Previous">‹</button>
           <div class="viewport">
             <div class="track">
-              <!-- Slide 1: 两个视频并排 -->
+              <!-- Slide 1:  -->
               <figure class="slide">
                 <div class="slide-content">
                   <video class="slide-media" muted playsinline loop preload="metadata">
@@ -286,7 +286,7 @@
                 </div>
               </figure>
 
-              <!-- Slide 2: 两个视频并排 -->
+              <!-- Slide 2:  -->
               <figure class="slide">
                 <div class="slide-content">
                   <video class="slide-media" muted playsinline loop preload="metadata">
@@ -298,7 +298,7 @@
                 </div>
               </figure>
 
-              <!-- Slide 3: 两个视频并排 -->
+              <!-- Slide 3:  -->
               <figure class="slide">
                 <div class="slide-content">
                   <video class="slide-media" muted playsinline loop preload="metadata">
@@ -309,7 +309,7 @@
                   </video>
                 </div>
               </figure>
-              <!-- Slide 4: 两个视频并排 -->
+              <!-- Slide 4:  -->
               <figure class="slide">
                 <div class="slide-content">
                   <video class="slide-media" muted playsinline loop preload="metadata">
@@ -333,7 +333,7 @@
     </div>
   </main>
 
-  <!-- 多轮播逻辑：自动轮播、悬停暂停、拖拽/箭头/指示点切换；视频页自动播放 -->
+  
   <script>
   document.addEventListener('DOMContentLoaded', () => {
     const roots = Array.from(document.querySelectorAll('.slider-root'));
@@ -351,7 +351,7 @@
 
       if (!track || !viewport || slides.length === 0 || !prev || !next || !dotsWrap) return;
 
-      // 生成小圆点
+      // 
       dotsWrap.innerHTML = slides.map((_, k) =>
         `<button class="dot" data-i="${k}" aria-label="Go to slide ${k+1}"></button>`
       ).join('');
@@ -362,7 +362,7 @@
       function measure(){ w = viewport.getBoundingClientRect().width || viewport.clientWidth || 0; }
       function activateDot(){ dots.forEach((d,k)=>d.classList.toggle('active', k===i)); }
 
-      // 视频页播放控制：本页两个都 play，其它页 pause
+      // 
       function playCurrent(){
         if (type !== 'video') return;
         const allVideos = Array.from(root.querySelectorAll('video'));
@@ -370,7 +370,7 @@
           const vids = Array.from(slide.querySelectorAll('video'));
           vids.forEach(v => {
             if (idx === i) { v.muted = true; v.play().catch(()=>{}); }
-            else { v.pause(); /* v.currentTime = 0; 如需切走从头播放可解开 */ }
+            else { v.pause(); }
           });
         });
       }
@@ -383,17 +383,17 @@
         playCurrent();
       }
 
-      // 自动轮播
+      //
       function startAuto(){ stopAuto(); if (interval>0) timer = setInterval(()=>go(i+1), interval); }
       function stopAuto(){ if (timer){ clearInterval(timer); timer = null; } }
       function userAction(fn){ return (...args)=>{ fn(...args); startAuto(); }; }
 
-      // 点击事件：左右按钮 & dots
+      // 
       prev.addEventListener('click', userAction(()=> go(i-1)));
       next.addEventListener('click', userAction(()=> go(i+1)));
       dots.forEach((d,k)=> d.addEventListener('click', userAction(()=> go(k))));
 
-      // 拖拽/触摸
+      // 
       let startX=0, dx=0, dragging=false;
       track.addEventListener('pointerdown', e=>{
         dragging = true; startX = e.clientX;
@@ -416,23 +416,23 @@
         startAuto();
       });
 
-      // 悬停暂停/恢复
+      
       viewport.addEventListener('mouseenter', stopAuto);
       viewport.addEventListener('mouseleave', startAuto);
 
-      // 可见性变化（切后台暂停）
+      
       document.addEventListener('visibilitychange', ()=> {
         if (document.hidden) stopAuto(); else startAuto();
       });
 
-      // 自适应
+     
       let rAF;
       window.addEventListener('resize', ()=>{
         if (rAF) cancelAnimationFrame(rAF);
         rAF = requestAnimationFrame(()=> { measure(); go(i,false); });
       });
 
-      // 资源就绪后初始化（图片或视频）
+      
       const medias = Array.from(root.querySelectorAll(type === 'video' ? 'video' : 'img'));
       const whenReady = () => {
         const ps = medias.map(m => {
@@ -455,7 +455,7 @@
       });
     }
 
-    // 初始化所有轮播实例
+
     roots.forEach(initSlider);
   });
   </script>
